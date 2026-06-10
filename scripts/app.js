@@ -22,6 +22,32 @@
   const needGroup = $("#needGroup");
   const cardSearch = $("#cardSearch");
   const cardRoleFilter = $("#cardRoleFilter");
+  const track = (eventName, params = {}) => {
+    if (typeof window.trackSTS === "function") {
+      window.trackSTS(eventName, params);
+    }
+  };
+  const debounce = (fn, delay = 450) => {
+    let timer;
+    return (...args) => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => fn(...args), delay);
+    };
+  };
+  const trackHpChange = debounce(() => {
+    track("decision_hp_change", {
+      character: state.character,
+      act: state.act,
+      hp_percent: state.hp
+    });
+  });
+  const trackCardSearch = debounce(() => {
+    track("card_search", {
+      character: state.character,
+      query: cardSearch.value.trim().slice(0, 80),
+      role_filter: cardRoleFilter.value
+    });
+  });
 
   function init() {
     characterSelect.innerHTML = characters
@@ -53,27 +79,43 @@
       state.character = event.target.value;
       updateOfferOptions();
       render();
+      track("decision_character_change", {
+        character: state.character
+      });
     });
 
     actSelect.addEventListener("change", (event) => {
       state.act = Number(event.target.value);
       render();
+      track("decision_act_change", {
+        character: state.character,
+        act: state.act
+      });
     });
 
     ascensionSelect.addEventListener("change", (event) => {
       state.ascension = Number(event.target.value);
       render();
+      track("decision_ascension_change", {
+        character: state.character,
+        ascension: state.ascension
+      });
     });
 
     hpRange.addEventListener("input", (event) => {
       state.hp = Number(event.target.value);
       hpOutput.textContent = `${state.hp}%`;
       render();
+      trackHpChange();
     });
 
     energySelect.addEventListener("change", (event) => {
       state.energy = Number(event.target.value);
       render();
+      track("decision_energy_change", {
+        character: state.character,
+        energy: state.energy
+      });
     });
 
     needGroup.addEventListener("change", () => {
@@ -81,6 +123,10 @@
         $$("#needGroup input:checked").map((input) => input.value)
       );
       render();
+      track("decision_needs_change", {
+        character: state.character,
+        needs: Array.from(state.needs).join(",")
+      });
     });
 
     $$(".offerSelect").forEach((select) => {
@@ -89,15 +135,38 @@
           .map((input) => input.value)
           .filter(Boolean);
         render();
+        track("reward_offer_change", {
+          character: state.character,
+          act: state.act,
+          offers: state.offers.join(",")
+        });
       });
     });
 
     ["#eliteCount", "#restCount", "#shopCount"].forEach((selector) => {
-      $(selector).addEventListener("input", render);
+      $(selector).addEventListener("input", () => {
+        render();
+        track("route_pressure_change", {
+          character: state.character,
+          act: state.act,
+          elite_count: Number($("#eliteCount").value),
+          rest_count: Number($("#restCount").value),
+          shop_count: Number($("#shopCount").value)
+        });
+      });
     });
 
-    cardSearch.addEventListener("input", renderCardGrid);
-    cardRoleFilter.addEventListener("change", renderCardGrid);
+    cardSearch.addEventListener("input", () => {
+      renderCardGrid();
+      trackCardSearch();
+    });
+    cardRoleFilter.addEventListener("change", () => {
+      renderCardGrid();
+      track("card_role_filter", {
+        character: state.character,
+        role_filter: cardRoleFilter.value
+      });
+    });
   }
 
   function updateOfferOptions() {

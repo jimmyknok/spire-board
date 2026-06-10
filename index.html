@@ -16,6 +16,13 @@
     <meta name="theme-color" content="#241d18" />
     <link rel="canonical" href="https://jimmyknok.github.io/spire-board/" />
     <link rel="manifest" href="site.webmanifest" />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CBFXYX3Z6S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag("js", new Date());
+      gtag("config", "G-CBFXYX3Z6S");
+    </script>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="尖塔决策室" />
     <meta property="og:title" content="尖塔决策室 | Slay the Spire 局内决策攻略站" />
@@ -57,7 +64,7 @@
   <body>
     <div class="site-shell">
       <aside class="rail" aria-label="站点导航">
-        <a class="brand" href="#decision">
+        <a class="brand" href="#decision" data-track="brand_home">
           <span class="brand-mark">STS</span>
           <span>
             <strong>尖塔决策室</strong>
@@ -65,11 +72,11 @@
           </span>
         </a>
         <nav>
-          <a href="#decision">决策台</a>
-          <a href="#cards">卡牌库</a>
-          <a href="#route">路线</a>
-          <a href="#manual">手册</a>
-          <a href="#sources">来源</a>
+          <a href="#decision" data-track="nav_decision">决策台</a>
+          <a href="#cards" data-track="nav_cards">卡牌库</a>
+          <a href="#route" data-track="nav_route">路线</a>
+          <a href="#manual" data-track="nav_manual">手册</a>
+          <a href="#sources" data-track="nav_sources">来源</a>
         </nav>
       </aside>
 
@@ -222,9 +229,9 @@
               后续可接入更完整的卡牌、遗物、怪物、事件表，并为每条建议保留版本号与依据。
             </p>
             <ul>
-              <li><a href="https://www.megacrit.com/" target="_blank" rel="noreferrer">Mega Crit 官方网站</a></li>
-              <li><a href="https://slay-the-spire.fandom.com/wiki/Slay_the_Spire_Wiki" target="_blank" rel="noreferrer">Slay the Spire Wiki</a></li>
-              <li><a href="https://store.steampowered.com/app/646570/Slay_the_Spire/" target="_blank" rel="noreferrer">Steam 商店页</a></li>
+              <li><a href="https://www.megacrit.com/" target="_blank" rel="noreferrer" data-track="outbound_megacrit">Mega Crit 官方网站</a></li>
+              <li><a href="https://slay-the-spire.fandom.com/wiki/Slay_the_Spire_Wiki" target="_blank" rel="noreferrer" data-track="outbound_wiki">Slay the Spire Wiki</a></li>
+              <li><a href="https://store.steampowered.com/app/646570/Slay_the_Spire/" target="_blank" rel="noreferrer" data-track="outbound_steam">Steam 商店页</a></li>
             </ul>
           </div>
         </section>
@@ -232,6 +239,7 @@
     </div>
 
     <script src="scripts/data.js"></script>
+    <script src="scripts/analytics.js"></script>
     <script src="scripts/app.js"></script>
   </body>
 </html>
