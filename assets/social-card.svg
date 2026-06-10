@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">尖塔决策室 social card</title>
+  <desc id="desc">A share card for a Slay the Spire decision guide site.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#17130f"/>
+      <stop offset="0.55" stop-color="#39241b"/>
+      <stop offset="1" stop-color="#b73f24"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.16"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" filter="url(#grain)" opacity="0.7"/>
+  <rect x="56" y="50" width="1088" height="530" fill="#fff8e8" opacity="0.96"/>
+  <rect x="86" y="80" width="1028" height="470" fill="none" stroke="#241d18" stroke-width="6"/>
+  <text x="118" y="154" fill="#b73f24" font-family="Avenir Next, Gill Sans, sans-serif" font-size="28" font-weight="800" letter-spacing="5">SLAY THE SPIRE GUIDE LAB</text>
+  <text x="116" y="300" fill="#17130f" font-family="Georgia, Songti SC, serif" font-size="104" font-weight="900">尖塔决策室</text>
+  <text x="122" y="380" fill="#241d18" font-family="Avenir Next, Gill Sans, sans-serif" font-size="36" font-weight="700">把卡牌、路线、血量和卡组缺口放到同一张决策桌。</text>
+  <g transform="translate(820 118)">
+    <path d="M132 0 L202 342 L68 342 Z" fill="#241d18"/>
+    <path d="M160 26 L226 342 L188 342 L178 82 Z" fill="#b73f24" opacity="0.8"/>
+    <circle cx="160" cy="18" r="18" fill="#d7a842"/>
+    <rect x="-18" y="300" width="112" height="154" rx="12" fill="#fff8e8" stroke="#241d18" stroke-width="8" transform="rotate(-10)"/>
+    <rect x="90" y="282" width="112" height="154" rx="12" fill="#fff8e8" stroke="#241d18" stroke-width="8" transform="rotate(9)"/>
+  </g>
+</svg>

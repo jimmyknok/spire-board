@@ -1,0 +1,17 @@
+{
+  "name": "尖塔决策室",
+  "short_name": "尖塔决策室",
+  "description": "Slay the Spire 局内决策攻略站",
+  "start_url": "/spire-board/",
+  "scope": "/spire-board/",
+  "display": "standalone",
+  "background_color": "#efe3cd",
+  "theme_color": "#241d18",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}
