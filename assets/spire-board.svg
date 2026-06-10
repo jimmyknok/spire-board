@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Original strategy-table spire illustration</title>
+  <desc id="desc">A fan-made card table, branching map, and distant tower for a strategy guide.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#17130f"/>
+      <stop offset="0.44" stop-color="#34251e"/>
+      <stop offset="1" stop-color="#8d341f"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" x2="1">
+      <stop offset="0" stop-color="#fff4d2"/>
+      <stop offset="1" stop-color="#d7a842"/>
+    </linearGradient>
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.18"/>
+      </feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <rect width="1200" height="900" filter="url(#grain)" opacity="0.5"/>
+  <path d="M0 650 C190 560 240 690 410 610 C580 532 700 630 855 560 C980 505 1065 550 1200 478 L1200 900 L0 900 Z" fill="#2b221b"/>
+  <path d="M760 130 L820 540 L706 540 Z" fill="#1d1713"/>
+  <path d="M780 98 L852 540 L812 540 L800 178 Z" fill="#4b271e"/>
+  <path d="M815 120 L873 540 L840 540 L830 175 Z" fill="#b73f24" opacity="0.55"/>
+  <circle cx="820" cy="86" r="17" fill="#d7a842"/>
+  <g opacity="0.88">
+    <path d="M270 150 C430 98 530 120 672 164 L654 718 C490 668 371 666 226 724 Z" fill="#f3ead8"/>
+    <path d="M292 184 C416 150 525 162 630 193" fill="none" stroke="#9c6e35" stroke-width="10" stroke-linecap="round"/>
+    <path d="M292 265 C414 222 526 245 632 278" fill="none" stroke="#241d18" stroke-width="5" stroke-dasharray="2 28" stroke-linecap="round"/>
+    <path d="M294 354 C418 318 529 335 635 372" fill="none" stroke="#241d18" stroke-width="5" stroke-dasharray="2 28" stroke-linecap="round"/>
+    <path d="M290 448 C420 414 526 432 636 474" fill="none" stroke="#241d18" stroke-width="5" stroke-dasharray="2 28" stroke-linecap="round"/>
+    <path d="M280 560 C414 524 526 536 642 590" fill="none" stroke="#241d18" stroke-width="5" stroke-dasharray="2 28" stroke-linecap="round"/>
+  </g>
+  <g fill="#b73f24" stroke="#241d18" stroke-width="7">
+    <circle cx="360" cy="262" r="23"/>
+    <circle cx="480" cy="236" r="23"/>
+    <circle cx="585" cy="286" r="23"/>
+    <circle cx="340" cy="390" r="23"/>
+    <circle cx="495" cy="382" r="23"/>
+    <circle cx="610" cy="452" r="23"/>
+    <circle cx="385" cy="555" r="23"/>
+    <circle cx="536" cy="562" r="23"/>
+  </g>
+  <g fill="none" stroke="#6a8f54" stroke-width="9" stroke-linecap="round">
+    <path d="M360 262 L340 390 L385 555"/>
+    <path d="M480 236 L495 382 L536 562"/>
+    <path d="M585 286 L610 452 L536 562"/>
+  </g>
+  <g transform="translate(690 565) rotate(-8)">
+    <rect x="0" y="0" width="160" height="230" rx="12" fill="#fff8e8" stroke="#241d18" stroke-width="8"/>
+    <rect x="22" y="24" width="116" height="78" fill="#b73f24"/>
+    <path d="M34 154 L124 154 M34 181 L110 181" stroke="#241d18" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(842 526) rotate(11)">
+    <rect x="0" y="0" width="160" height="230" rx="12" fill="#fff8e8" stroke="#241d18" stroke-width="8"/>
+    <rect x="22" y="24" width="116" height="78" fill="#4aa3a2"/>
+    <path d="M34 154 L124 154 M34 181 L110 181" stroke="#241d18" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(982 586) rotate(4)">
+    <rect x="0" y="0" width="160" height="230" rx="12" fill="#fff8e8" stroke="#241d18" stroke-width="8"/>
+    <rect x="22" y="24" width="116" height="78" fill="#6a8f54"/>
+    <path d="M34 154 L124 154 M34 181 L110 181" stroke="#241d18" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <path d="M96 771 C200 732 294 739 418 778" fill="none" stroke="url(#paper)" stroke-width="16" stroke-linecap="round"/>
+  <path d="M108 818 C230 792 316 796 430 834" fill="none" stroke="#4aa3a2" stroke-width="10" stroke-linecap="round"/>
+</svg>

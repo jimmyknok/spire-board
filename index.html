@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>尖塔决策室 | Slay the Spire 攻略站</title>
+    <meta
+      name="description"
+      content="面向杀戮尖塔玩家的局内决策攻略站：路线、卡牌奖励、卡组缺口、精英风险与角色打法。"
+    />
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <aside class="rail" aria-label="站点导航">
+        <a class="brand" href="#decision">
+          <span class="brand-mark">STS</span>
+          <span>
+            <strong>尖塔决策室</strong>
+            <small>A20-ready guide lab</small>
+          </span>
+        </a>
+        <nav>
+          <a href="#decision">决策台</a>
+          <a href="#cards">卡牌库</a>
+          <a href="#route">路线</a>
+          <a href="#manual">手册</a>
+          <a href="#sources">来源</a>
+        </nav>
+      </aside>
+
+      <main>
+        <section class="intro-panel" id="decision">
+          <div class="intro-copy">
+            <p class="eyebrow">Slay the Spire fan guide</p>
+            <h1>把尖塔攻略做成局内决策工具。</h1>
+            <p>
+              输入你当前的角色、楼层、血量、卡组缺口和奖励选项，站点会给出卡牌优先级、路线风险与下一步打法。v1
+              先覆盖最常见的高影响决策，后续可以继续扩展全量卡牌、遗物、事件与敌人数据。
+            </p>
+          </div>
+          <figure class="spire-visual" aria-label="原创尖塔路线视觉图">
+            <img src="assets/spire-board.svg" alt="尖塔地图与卡牌桌面的原创视觉图" />
+          </figure>
+        </section>
+
+        <section class="decision-grid" aria-label="局内决策台">
+          <form class="control-panel" id="decisionForm">
+            <div class="panel-heading">
+              <span class="kicker">Run State</span>
+              <h2>当前局面</h2>
+            </div>
+
+            <label>
+              角色
+              <select id="characterSelect"></select>
+            </label>
+
+            <div class="two-col">
+              <label>
+                章节
+                <select id="actSelect">
+                  <option value="1">Act 1</option>
+                  <option value="2">Act 2</option>
+                  <option value="3">Act 3</option>
+                  <option value="4">Act 4</option>
+                </select>
+              </label>
+              <label>
+                进阶
+                <select id="ascensionSelect">
+                  <option value="0">A0-A9</option>
+                  <option value="10">A10-A16</option>
+                  <option value="17">A17-A19</option>
+                  <option value="20">A20</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="range-field">
+              <label for="hpRange">生命值 <output id="hpOutput">68%</output></label>
+              <input id="hpRange" type="range" min="10" max="100" value="68" />
+            </div>
+
+            <label>
+              最大能量
+              <select id="energySelect">
+                <option value="3">3 能量</option>
+                <option value="4">4 能量</option>
+                <option value="5">5+ 能量</option>
+              </select>
+            </label>
+
+            <fieldset>
+              <legend>卡组现在缺什么</legend>
+              <div class="chip-grid" id="needGroup"></div>
+            </fieldset>
+
+            <fieldset>
+              <legend>这次奖励给了什么</legend>
+              <div class="offer-grid">
+                <select class="offerSelect" aria-label="奖励卡 1"></select>
+                <select class="offerSelect" aria-label="奖励卡 2"></select>
+                <select class="offerSelect" aria-label="奖励卡 3"></select>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>路线压力</legend>
+              <div class="route-controls">
+                <label>
+                  精英
+                  <input id="eliteCount" type="number" min="0" max="4" value="2" />
+                </label>
+                <label>
+                  火堆
+                  <input id="restCount" type="number" min="0" max="4" value="1" />
+                </label>
+                <label>
+                  商店
+                  <input id="shopCount" type="number" min="0" max="4" value="1" />
+                </label>
+              </div>
+            </fieldset>
+          </form>
+
+          <section class="results-panel" aria-live="polite">
+            <div class="panel-heading">
+              <span class="kicker">Recommendation</span>
+              <h2>下一步建议</h2>
+            </div>
+            <div id="characterSummary" class="character-summary"></div>
+            <div id="recommendationList" class="recommendation-list"></div>
+            <div id="routeVerdict" class="route-verdict"></div>
+          </section>
+        </section>
+
+        <section class="content-band" id="cards">
+          <div class="section-title">
+            <span class="kicker">Card Database</span>
+            <h2>核心卡牌库</h2>
+            <p>按角色、阶段和卡组缺口筛选。这里保留的是能明显改变决策的卡，不是无脑 tier list。</p>
+          </div>
+          <div class="toolbar">
+            <input id="cardSearch" type="search" placeholder="搜索卡名、标签、作用..." />
+            <select id="cardRoleFilter">
+              <option value="all">全部作用</option>
+            </select>
+          </div>
+          <div class="card-grid" id="cardGrid"></div>
+        </section>
+
+        <section class="route-band" id="route">
+          <div class="section-title">
+            <span class="kicker">Pathing</span>
+            <h2>路线判断框架</h2>
+            <p>尖塔不是“看到精英就打”，也不是“低血就躲”。关键是判断你的卡组是否已经解决了本章测试题。</p>
+          </div>
+          <div class="route-book" id="routeBook"></div>
+        </section>
+
+        <section class="manual-band" id="manual">
+          <div class="section-title">
+            <span class="kicker">Playbook</span>
+            <h2>四职业局内手册</h2>
+          </div>
+          <div class="playbook-grid" id="playbookGrid"></div>
+        </section>
+
+        <section class="sources-band" id="sources">
+          <div class="section-title">
+            <span class="kicker">Sources & Scope</span>
+            <h2>数据范围与来源</h2>
+          </div>
+          <div class="sources-card">
+            <p>
+              本站是非官方粉丝攻略工具。v1 使用人工整理的关键决策数据，优先覆盖常见高影响选择；没有复制游戏资源或官方美术。
+              后续可接入更完整的卡牌、遗物、怪物、事件表，并为每条建议保留版本号与依据。
+            </p>
+            <ul>
+              <li><a href="https://www.megacrit.com/" target="_blank" rel="noreferrer">Mega Crit 官方网站</a></li>
+              <li><a href="https://slay-the-spire.fandom.com/wiki/Slay_the_Spire_Wiki" target="_blank" rel="noreferrer">Slay the Spire Wiki</a></li>
+              <li><a href="https://store.steampowered.com/app/646570/Slay_the_Spire/" target="_blank" rel="noreferrer">Steam 商店页</a></li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/app.js"></script>
+  </body>
+</html>
