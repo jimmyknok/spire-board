@@ -8,7 +8,8 @@ API_ROOT="${GITHUB_API_URL:-https://api.github.com}"
 
 if [[ -z "${GITHUB_TOKEN:-}" ]]; then
   echo "Missing GITHUB_TOKEN."
-  echo "Create a fine-grained token with Contents: Read and write, Administration: Read and write, Pages: Read and write."
+  echo "Create a fine-grained token with Repository access: All repositories."
+  echo "Repository permissions: Administration, Contents, Pages, Workflows = Read and write."
   echo "Then run: GITHUB_TOKEN=... $0"
   exit 1
 fi
@@ -22,20 +23,32 @@ api() {
   local method="$1"
   local path="$2"
   local body="${3:-}"
+  local response_file
+  response_file="$(mktemp)"
+  local status
+
   if [[ -n "$body" ]]; then
-    curl -fsS -X "$method" \
+    status="$(curl -sS -o "$response_file" -w "%{http_code}" -X "$method" \
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${GITHUB_TOKEN}" \
       -H "X-GitHub-Api-Version: 2022-11-28" \
       -d "$body" \
-      "${API_ROOT}${path}"
+      "${API_ROOT}${path}")"
   else
-    curl -fsS -X "$method" \
+    status="$(curl -sS -o "$response_file" -w "%{http_code}" -X "$method" \
       -H "Accept: application/vnd.github+json" \
       -H "Authorization: Bearer ${GITHUB_TOKEN}" \
       -H "X-GitHub-Api-Version: 2022-11-28" \
-      "${API_ROOT}${path}"
+      "${API_ROOT}${path}")"
   fi
+
+  if [[ "$status" -lt 200 || "$status" -gt 299 ]]; then
+    echo "GitHub API ${method} ${path} failed with HTTP ${status}." >&2
+    python3 -m json.tool "$response_file" >&2 || sed -n '1,80p' "$response_file" >&2
+    return 1
+  fi
+
+  sed -n '1,$p' "$response_file"
 }
 
 json_get() {
