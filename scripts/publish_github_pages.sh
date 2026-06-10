@@ -51,11 +51,12 @@ api() {
   sed -n '1,$p' "$response_file"
 }
 
-json_get() {
-  python3 -c "import json,sys; print(json.load(sys.stdin).get('$1', ''))"
-}
-
-LOGIN="$(api GET /user | json_get login)"
+LOGIN_RESPONSE="$(api GET /user)"
+LOGIN="$(printf '%s' "$LOGIN_RESPONSE" | python3 -c "import json,sys; print(json.load(sys.stdin).get('login', ''))")"
+if [[ -z "$LOGIN" ]]; then
+  echo "Could not read GitHub login from token response." >&2
+  exit 1
+fi
 OWNER="${GITHUB_OWNER:-$LOGIN}"
 FULL_NAME="${OWNER}/${REPO_NAME}"
 
