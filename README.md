@@ -23,7 +23,19 @@ python3 -m http.server 8765
 3. 进入 GitHub 仓库的 `Settings -> Pages`，Source 选择 `GitHub Actions`。
 4. 以后每次推送到 `main` 分支都会自动发布。
 
-如果你已经登录 GitHub CLI，也可以后续改成一条命令创建仓库并推送；当前机器没有安装 `gh`，所以这里先采用最稳的 Pages 工作流。
+如果你给本机临时提供 GitHub token，可以用脚本自动创建仓库、推送并启用 Pages：
+
+```bash
+GITHUB_TOKEN=你的_token scripts/publish_github_pages.sh
+```
+
+可选参数：
+
+```bash
+REPO_NAME=slay-the-spire-guide VISIBILITY=public GITHUB_TOKEN=你的_token scripts/publish_github_pages.sh
+```
+
+脚本不会把 token 写进 git remote；推送时只使用一次性的 HTTP 认证头。
 
 ## 数据扩展方向
 
